@@ -1,0 +1,156 @@
+<%= form_for(student_profile) do |f| %>
+  <% if student_profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(student_profile.errors.count, "error") %> prohibited this student_profile from being saved:</h2>
+
+      <ul>
+      <% student_profile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <div class="form-group">
+    <%= f.label :name, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :name, :class => 'form-control' %><br>
+    </div>
+    <%=f.error_span(:name) %>
+  </div>
+
+
+
+  <div class="form-group">
+    <%= f.label :email, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :email, :class => 'form-control' %><br>
+    </div>
+    <%=f.error_span(:email) %>
+  </div>
+
+
+
+  <div class="form-group">
+    <%= f.label :contact, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :contact, :class => 'form-control' %><br>
+    </div>
+    <%=f.error_span(:contact) %>
+  </div>
+
+
+
+  <div class="form-group">
+    <%= f.label :college, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :college, :class => 'form-control' %><br>
+    </div>
+    <%=f.error_span(:college) %>
+  </div>
+
+
+
+  <div class="field">
+    <%= f.label :address, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :address, :class => 'form-control',id:"autocomplete" , placeholder:"Enter your address",
+
+              onFocus: "geolocate()" %><br>
+    </div>
+    <%=f.error_span(:address) %>
+    </div>
+
+
+
+  <div class="form-group">
+    <%= f.label :branch, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :branch, :class => 'form-control' %><br>
+    </div>
+    <%=f.error_span(:branch) %>
+  </div>
+
+
+
+ <div class="form-group">
+   <%= f.label :current_year, :class => 'control-label col-lg-2' %>
+   <div class="col-lg-10">
+     <%= f.text_field :current_year, :class => 'form-control' %><br>
+   </div>
+   <%=f.error_span(:current_year) %>
+ </div>
+
+
+
+  <div class="form-group">
+      <%= f.label :profile_pic, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+        <%= f.file_field :profile_pic, :class => 'form-control' %><br>
+      </div>
+      <%=f.error_span(:current_year) %>
+    </div>
+
+
+
+   <div class="form-group">
+       <%= f.label :gender, :class => 'control-label col-lg-2' %>
+   <div class="col-lg-10">
+    <%= f.radio_button :gender, 'Male' %>Male
+    <%= f.radio_button :gender,'Female' %>Female
+    </div>
+    <%=f.error_span(:gender) %>
+    </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<script>
+     // Note: This example requires that you consent to location sharing when
+     // prompted by your browser. If you see the error "The Geolocation service
+     // failed.", it means you probably did not give permission for the browser to
+     // locate you.
+     var map, infoWindow;
+     function initMap() {
+       map = new google.maps.Map(document.getElementById('map'), {
+         center: {lat: -34.397, lng: 150.644},
+         zoom: 6
+       });
+       infoWindow = new google.maps.InfoWindow;
+
+       // Try HTML5 geolocation.
+       if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(function(position) {
+           var pos = {
+             lat: position.coords.latitude,
+             lng: position.coords.longitude
+           };
+
+           infoWindow.setPosition(pos);
+           infoWindow.setContent('Location found.');
+           infoWindow.open(map);
+           map.setCenter(pos);
+         }, function() {
+           handleLocationError(true, infoWindow, map.getCenter());
+         });
+       } else {
+         // Browser doesn't support Geolocation
+         handleLocationError(false, infoWindow, map.getCenter());
+       }
+     }
+
+     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+       infoWindow.setPosition(pos);
+       infoWindow.setContent(browserHasGeolocation ?
+                             'Error: The Geolocation service failed.' :
+                             'Error: Your browser doesn\'t support geolocation.');
+       infoWindow.open(map);
+     }
+   </script>
+   <script async defer
+   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMof93EDC6Ig6LbVU5QunuMXgU5lNFzdcs&callback=initMap">
+   </script>
+
